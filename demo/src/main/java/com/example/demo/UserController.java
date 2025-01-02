@@ -46,16 +46,16 @@ public String showUpdateForm(@PathVariable("id") long id, Model model) {
 }
 
 
-@PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id, @Valid User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            user.setId(id);
-            return "update-user";
-        }
+// @PostMapping("/update/{id}")
+//     public String updateUser(@PathVariable("id") long id, @Valid User user, BindingResult result, Model model) {
+//         if (result.hasErrors()) {
+//             user.setId(id);
+//             return "update-user";
+//         }
 
-        userRepository.save(user);
-        return "redirect:/index";
-}
+//         userRepository.save(user);
+//         return "redirect:/index";
+// }
 
 
 @GetMapping("/delete/{id}")
@@ -66,6 +66,29 @@ public String deleteUser(@PathVariable("id") long id, Model model) {
     return "redirect:/index";
 }
     // additional CRUD methods
+
+
+//  QN - 3MARKS - EVAL1 modification - Update only if original name starts with "A"
+@PostMapping("/update/{id}")
+public String updateUser(@PathVariable("id") long id, @Valid User user, BindingResult result, Model model) {
     
+    User originalUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id: " + id));
+    if (!originalUser.getName().startsWith("A")) {
+        model.addAttribute("error", "original name starts with 'A'");
+        model.addAttribute("user", originalUser);
+        return "redirect:/index";
+    }
+
+   
+    if (result.hasErrors()) {
+        user.setId(id); 
+        return "update-user";
+    }
+
+    
+    userRepository.save(user);
+    return "redirect:/index";
+}
+
 }
 
