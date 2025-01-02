@@ -1,0 +1,13 @@
+# Creating Application
+1.  Domain layer        defined JPA entities and constraints -- using JPA & hibernate validator
+2.  Repository layer    leverages spring data JPA -- using CrudRepository -- implement CRUD functionalities
+3.  Controller layer    manages Web requests -- map http req to crud operations & passed data to view layer
+4.  View Layer          (using thymeleaf templates)
+                        user interaction
+
+
+1.  Add phone number 
+    > user.java
+    > index.html
+    > add-user.html
+    > update-user.html
