@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Activity Portal</title>
+  <style>
+    .hover-underline:hover {
+      text-decoration: underline !important;
+    }
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: #fbf9fa;
+      color: #111827;
+    }
+
+    /* Layout */
+    .min-h-screen {
+      min-height: 100vh;
+    }
+
+    .bg-gray-50 {
+      background-color: #f9fafb;
+    }
+
+    /* Sidebar styles */
+    .sap-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background-color: white;
+      color: black;
+      width: 180px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      z-index: 10;
+    }
+
+    .sap-content {
+      margin-left: 180px;
+      transition: all 0.3s ease-in-out;+
+    }
+
+    /* Header styles */
+    .sap-header {
+      background-color: #3D70F5;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+    background-color: #031e6f; /* Darker blue on hover */
+}
+
+
+    /* Card styles */
+    .sap-card {
+      background-color: white;
+      border-radius: 0.375rem;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      border: 1px solid #f3f4f6;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    .sap-card:hover {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Nav items */
+    .sap-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: #504f4f;
+      opacity: 0.8;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .sap-nav-item:hover {
+      opacity: 1;
+      background-color: white;
+      color: red;
+    }
+
+    .sap-nav-item.active {
+      opacity: 1;
+      background-color: white;
+    }
+
+    /* Grid and layout */
+    .grid {
+      display: grid;
+    }
+
+    .p-6 {
+      padding: 1.5rem;
+    }
+
+    .p-4 {
+      padding: 1rem;
+    }
+
+    .p-8 {
+      padding: 2rem;
+    }
+
+    .py-2 {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .space-y-4 {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .space-y-6 {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .justify-between {
+      justify-content: space-between;
+    }
+
+    .gap-3 {
+      gap: 0.75rem;
+    }
+
+    .gap-4 {
+      gap: 1rem;
+    }
+
+    .flex-col {
+      flex-direction: column;
+    }
+
+    .grid-cols-1 {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+
+    .mb-8 {
+      margin-bottom: 2rem;
+    }
+
+    .mt-4 {
+      margin-top: 1rem;
+    }
+
+    .mt-8 {
+      margin-top: 2rem;
+    }
+
+    .mb-3 {
+      margin-bottom: 0.75rem;
+    }
+
+    .mt-2 {
+      margin-top: 0.5rem;
+    }
+
+    .mt-1 {
+      margin-top: 0.25rem;
+    }
+
+    .border-b {
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .border-0 {
+      border: none !important;
+    }
+
+    /* Text styles */
+    .text-2xl {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+
+    .text-lg {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+
+    .text-sm {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+
+    .text-xs {
+      font-size: 0.75rem;
+      line-height: 1rem;
+    }
+
+    .font-semibold {
+      font-weight: 600;
+    }
+
+    .font-medium {
+      font-weight: 500;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-gray-500 {
+      color: #6b7280;
+    }
+
+    .text-gray-600 {
+      color: black;
+    }
+
+    .text-gray-200{
+      color: #3C3C3C
+    }
+
+    .text-gray-300{
+      color: #565656
+    }
+
+    .text-gray-900 {
+      color: black;
+      font-weight: bold;
+    }
+
+    .text-white {
+      color: white;
+    }
+
+    .capitalize {
+      text-transform: capitalize;
+    }
+
+    /* Avatar and icon styles */
+    .avatar {
+      position: relative;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 9999px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #655e60;
+      color: white;
+      font-weight: 500;
+    }
+
+    .avatar-lg {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+
+    .icon-button {
+      position: relative;
+      padding: 0.375rem;
+      border-radius: 9999px;
+      transition: background-color 0.2s;
+    }
+
+    .icon-button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0.5rem;
+      height: 0.5rem;
+      background-color: #fcd34d;
+      border-radius: 9999px;
+    }
+
+    /* Responsive adjustments */
+    @media (min-width: 1024px) {
+      .lg\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .lg\:col-span-2 {
+        grid-column: span 2 / span 2;
+      }
+    }
+
+    /* Animation classes */
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-in-out forwards;
+    }
+
+    .animate-fade-up {
+      animation: fadeUp 0.4s ease-out forwards;
+    }
+
+    .delay-75 {
+      animation-delay: 75ms;
+    }
+
+    .delay-150 {
+      animation-delay: 150ms;
+    }
+
+    .delay-200 {
+      animation-delay: 200ms;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { 
+        transform: translateY(20px); 
+        opacity: 0; 
+      }
+      to { 
+        transform: translateY(0); 
+        opacity: 1; 
+      }
+    }
+
+    /* Chart styles */
+    .chart-container {
+      height: 300px;
+      width: 100%;
+    }
+
+    .chart-bar {
+      display: inline-block;
+      margin: 0 4px;
+      background-color: #8884d8;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .chart-bar-dept {
+      background-color: #ffc658;
+    }
+
+    /* Leaderboard styles */
+    .leaderboard-podium {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .podium-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 0.5rem;
+      position: relative;
+    }
+
+    .podium-item.first {
+      order: 2;
+      transform: scale(1.1);
+    }
+
+    .podium-item.second {
+      order: 1;
+    }
+
+    .podium-item.third {
+      order: 3;
+    }
+
+    .crown {
+      position: absolute;
+      top: -1.75rem;
+      color: #fcd34d;
+      animation: pulse 2s infinite;
+    }
+
+    .leaderboard-list {
+      margin-top: 1rem;
+    }
+
+    .leaderboard-item {
+      background-color: rgb(28, 62, 197);
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f3f4f6;
+      margin-bottom: 0.5rem;
+      animation: fadeUp 0.4s ease-out forwards;
+    }
+
+    .rank-circle {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #5800CC;
+      color: white;
+      border-radius: 9999px;
+      margin-right: 0.5rem;
+    }
+
+    .sap-content {
+            margin-left: 275px; /* Adjust according to sidebar width */
+            transition: margin-left 0.3s ease-in-out; /* Smooth transition */
+        }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Sidebar Navigation -->
+    <div class="sap-sidebar" style="width: 280px; background-color: white; padding: 16px;">
+      <div class="p-4 mb-8">
+        <h1 style="color: #1F15B0; font-size: 80px; font-family: 'Roboto',sans-serif;  font-weight: 900; margin-top: -35px; margin-left: 28px;">SAP</h1>
+
+      </div>
+      
+      <div class="flex flex-col space-y-1">
+        <a href="#" class="sap-nav-item active" style="display: flex; align-items: center; gap: 12px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 50px;">
+            <rect x="3" y="3" width="7" height="9" />
+            <rect x="14" y="3" width="7" height="5" />
+            <rect x="14" y="12" width="7" height="9" />
+            <rect x="3" y="16" width="7" height="5" />
+          </svg>
+          <span style="font-size: 18px; margin-left: 0px;">Dashboard</span>
+        </a>
+        
+        <a href="#" class="sap-nav-item active" style="display: flex; align-items: center; gap: 12px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 50px;">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          <span style="font-size: 18px; margin-left: 0px;">Calendar</span>
+        </a>
+        <a href="#" class="sap-nav-item active" style="display: flex; align-items: center; gap: 12px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 50px;">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          <span style="font-size: 18px; margin-left: 0px;">Doubts</span>
+        </a>
+      </div>
+      <div class="mt-8 px-4">
+        <h1 class="text-lg mb-3" style="color: black; font-size: 21px; font-weight: 500; margin-left: 58px;">Activity Points</h1>
+        <div class="flex flex-col gap-3">
+          <button style="width: 100%; height: 63px; font-size: 16px; background-color: #ECF1FF; 
+               color: #3D70F5; border: none; border-radius: 8px; margin-bottom: 10px;
+               transition: background-color 0.3s ease;">
+  Request Status
+</button>
+
+<button style="width: 100%; height: 63px; font-size: 16px; background-color: #ECF1FF; 
+               color: #3D70F5; border: none; border-radius: 8px; margin-bottom: 10px;
+               transition: background-color 0.3s ease;">
+  Request History
+</button>
+
+<button style="width: 100%; height: 63px; font-size: 16px; background-color: #ECF1FF; 
+               color: #3D70F5; border: none; border-radius: 8px; margin-bottom: 10px;
+               transition: background-color 0.3s ease;">
+  Send a New Request
+</button>
+
+        </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="sap-content">
+      <!-- Header -->
+      <div class="sap-header">
+        <h2 class="text-lg font-medium animate-fade-in absolute top-1 left-10">
+          Hii, Nikhitha
+        </h2>
+        <div class="flex items-center gap-4">
+          <button class="icon-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            <span class="notification-dot"></span>
+          </button>
+          <div class="avatar">N</div>
+        </div>
+      </div>
+      
+      <!-- Dashboard Content -->
+      <div class="p-6">
+        <h1 class="text-2xl font-semibold mb-6 animate-fade-in">Dashboard</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Left Column (2/3 width on large screens) -->
+          <div class="lg:col-span-2 space-y-6">
+            <!-- Student Profile -->
+            <div class="sap-card p-6 animate-fade-up delay-75" 
+     style="background: #eaeaeb; opacity: 0.5; border-radius: 10px; box-shadow: 0px 4px 4px 10px rgba(193, 191, 191, 0.841);">
+
+
+              <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4 py-2 border-b border-gray-100">
+                  <div class="text-gray-600 font-medium capitalize">name</div>
+                  <div class="text-gray-850">Ravipati Nikhitha Choudhary</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 py-2 border-b border-gray-100">
+                  <div class="text-gray-600 font-medium capitalize">Student_id</div>
+                  <div class="text-gray-800">B220492CS</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 py-2 border-b border-gray-100">
+                  <div class="text-gray-600 font-medium capitalize">branch</div>
+                  <div class="text-gray-800">Computer Science and Engineering</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 py-2 border-b border-gray-100">
+                  <div class="text-gray-600 font-medium capitalize">section</div>
+                  <div class="text-gray-800">CS02</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 py-2 border-b border-gray-100">
+                  <div class="text-gray-600 font-medium capitalize">email</div>
+                  <div class="text-gray-800">ravipati_b220492cs@nitc.ac.in</div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 py-2">
+                  <div class="text-gray-600 font-medium capitalize">contact</div>
+                  <div class="text-gray-800">+91 9119119110</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Activity Chart -->
+            <div class="sap-card p-6 animate-fade-up delay-150">
+              <div class="chart-container" id="activity-chart">
+                <!-- Chart will be rendered here by JavaScript -->
+              </div>
+              <div class="mt-4 text-center font-medium">
+                Total Points : 56
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right Column (1/3 width on large screens) -->
+          <!-- Right Column (1/3 width on large screens) -->
+          <div class="space-y-6 flex flex-col items-center"> <!-- Added flex & items-center -->
+
+
+            <!-- Upcoming Events -->
+            <div class="sap-card animate-fade-up delay-200">
+              <div class="p-4 border-b border-gray-100">
+                <h3 class="font-semibold text-lg">Upcoming events</h3>
+              </div>
+              <div class="p-4">
+                <div class="space-y-4">
+                  <div class="p-4 border-b border-gray-100 animate-fade-in" style="animation-delay: 100ms;">
+                    <h4 class="font-medium text-gray-200">Talk on Web Development</h4>
+                    <p class="text-gray-300 text-sm mt-1">
+                      Friday, 4th February, 10:30 AM
+                    </p>
+                  </div>
+                  <div class="p-4 animate-fade-in" style="animation-delay: 200ms;">
+                    <h4 class="font-medium text-gray-200">Talk on AI/ML</h4>
+                    <p class="text-gray-300 text-sm mt-1">
+                      Wednesday, 5 February, 6:00PM
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Leaderboard -->
+            <div class="mt-6">
+              <!-- Podium (Top 3) -->
+              <div class="leaderboard-podium" style="margin-top: 20px; display: flex; align-items: center;">
+                <!-- Second Place -->
+                <div class="podium-item second">
+
+                  <div class="avatar avatar-lg" style="border: 2px solid #fcd34d; overflow: hidden; width: 60px; height: 60px; border-radius: 50%;">
+                    <img src="profile2.jpg" alt="Varun" style="width: 100%; height: 100%; object-fit: cover;">
+                  </div>
+
+                  <div class="mt-2 text-center">
+                    <p class="text-sm font-medium">Larry</p>
+                    <p class="text-xs text-gray-500">1531 pts.</p>
+                  </div>
+                </div>
+                
+                <!-- First Place -->
+                <div class="podium-item first">
+                  <div class="crown">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#003CFF" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14" />
+                    </svg>
+                  </div>
+                
+                  <!-- Circular Image Avatar -->
+                  <div class="avatar avatar-lg" style="border: 2px solid #fcd34d; overflow: hidden; width: 60px; height: 60px; border-radius: 50%;">
+                    <img src="profile3.jpeg" alt="Ron" style="width: 100%; height: 100%; object-fit: cover;">
+                  </div>
+                
+                  <div class="mt-2 text-center">
+                    <p class="text-sm font-medium">Ron</p>
+                    <p class="text-xs text-gray-500">1623 pts.</p>
+                  </div>
+                </div>
+                
+                
+                <!-- Third Place -->
+                <div class="podium-item third">
+
+                  <div class="avatar avatar-lg" style="border: 2px solid #fcd34d; overflow: hidden; width: 60px; height: 60px; border-radius: 50%;">
+                    <img src="profile4.webp" alt="Joanna" style="width: 100%; height: 100%; object-fit: cover;">
+                  </div>
+                  
+                  <div class="mt-2 text-center">
+                    <p class="text-sm font-medium">Joanna</p>
+                    <p class="text-xs text-gray-500">1251 pts.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Leaderboard Container -->
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+
+  <!-- Centered Leaderboard -->
+  <div class="leaderboard-list" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center;">
+
+    <!-- Leaderboard Item -->
+    <div class="leaderboard-item" 
+      style="background-color:#2c59ed; color: white; width: 300px; height: 50px; padding: 10px; border-radius: 30px; display: flex; align-items: center; gap: 10px;">
+      <span style="font-weight: bold; font-size: 16px; flex: 0 0 30px; text-align: center;">1</span>
+      <div class="avatar avatar-lg" style="border: 2px solid #fcd34d; overflow: hidden; width: 35px; height: 35px; border-radius: 50%;">
+        <img src="profile3.jpeg" alt="Ron" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <span style="flex: 1; font-size: 16px;">Ron</span>
+      <span style="font-size: 12px; color: lightgray; text-align: right;">1623 pts.</span>
+    </div>
+
+    <div class="leaderboard-item" 
+      style="background-color:#6c8cf7; color: white; width: 300px; height: 50px; padding: 10px; border-radius: 30px; display: flex; align-items: center; gap: 10px;">
+      <span style="font-weight: bold; font-size: 16px; flex: 0 0 30px; text-align: center;">2</span>
+      <div class="avatar avatar-lg" style="border: 2px solid #fcd34d; overflow: hidden; width: 35px; height: 35px; border-radius: 50%;">
+        <img src="profile2.jpg" alt="Larry" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <span style="flex: 1; font-size: 16px;">Larry</span>
+      <span style="font-size: 12px; color: lightgray; text-align: right;">1620 pts.</span>
+    </div>
+
+    <div class="leaderboard-item" 
+      style="background-color:#465da9; color: white; width: 300px; height: 50px; padding: 10px; border-radius: 30px; display: flex; align-items: center; gap: 10px;">
+      <span style="font-weight: bold; font-size: 16px; flex: 0 0 30px; text-align: center;">3</span>
+      <div class="avatar avatar-lg" style="border: 2px solid #fcd34d; overflow: hidden; width: 35px; height: 35px; border-radius: 50%;">
+        <img src="profile4.webp" alt="Joanna" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <span style="flex: 1; font-size: 16px;">Joanna</span>
+      <span style="font-size: 12px; color: lightgray; text-align: right;">1587 pts.</span>
+    </div>
+
+    <!-- Kate -->
+    <div class="leaderboard-item" style="background-color:#5d72b8; color: white; width: 300px; height: 50px; 
+      padding: 10px; border-radius: 30px; display: flex; align-items: center; gap: 10px;">
+      <span style="font-weight: bold; font-size: 16px; flex: 0 0 30px; text-align: center;">4</span>
+      <div class="avatar avatar-lg" style="border: 2px solid #fcd34d; overflow: hidden; width: 35px; height: 35px; border-radius: 50%;">
+        <img src="profile5.jpg" alt="Kate" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <span style="flex: 1; font-size: 16px;">Kate</span>
+      <span style="font-size: 12px; color: lightgray; text-align: right;">1560 pts.</span>
+    </div>
+
+    <!-- Robert -->
+    <div class="leaderboard-item" style="background-color:#516bc1; color: white; width: 300px; height: 50px; 
+      padding: 10px; border-radius: 30px; display: flex; align-items: center; gap: 10px;">
+      <span style="font-weight: bold; font-size: 16px; flex: 0 0 30px; text-align: center;">5</span>
+      <div class="avatar avatar-lg" style="border: 2px solid #fcd34d; overflow: hidden; width: 35px; height: 35px; border-radius: 50%;">
+        <img src="profile6.webp" alt="Robert" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <span style="flex: 1; font-size: 16px;">Robert</span>
+      <span style="font-size: 12px; color: lightgray; text-align: right;">1548 pts.</span>
+    </div>
+
+  </div>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const chartContainer = document.getElementById('activity-chart');
+
+    const data = [
+      { semester: 1, institute: 2, department: 5 },
+      { semester: 2, institute: 3, department: 2 },
+      { semester: 3, institute: 6, department: 8 },
+      { semester: 4, institute: 5, department: 3 },
+      { semester: 5, institute: 2, department: 9 },
+      { semester: 6, institute: 4, department: 7 }
+    ];
+
+    const maxValue = Math.max(...data.map(d => Math.max(d.institute, d.department)));
+
+    const chartHeight = 250;
+    const chartWidth = chartContainer.offsetWidth;
+    const barWidth = Math.floor((chartWidth - 100) / (data.length * 2)) - 4;
+
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    wrapper.style.height = `${chartHeight}px`;
+    wrapper.style.marginTop = '20px';
+
+    // Create bars
+    data.forEach((item, index) => {
+      // Institute bar (Darker Blue)
+      const instituteBar = document.createElement('div');
+      instituteBar.className = 'chart-bar';
+      instituteBar.style.height = `${(item.institute / maxValue) * chartHeight * 0.8}px`;
+      instituteBar.style.width = `${barWidth}px`;
+      instituteBar.style.position = 'absolute';
+      instituteBar.style.bottom = '30px';
+      instituteBar.style.left = `${(index * (barWidth * 2 + 12)) + 50}px`;
+      instituteBar.style.backgroundColor = '#5687F2';
+      instituteBar.setAttribute('title', `Institute: ${item.institute}`);
+
+      // Department bar (Lighter Blue)
+      const deptBar = document.createElement('div');
+      deptBar.className = 'chart-bar chart-bar-dept';
+      deptBar.style.height = `${(item.department / maxValue) * chartHeight * 0.8}px`;
+      deptBar.style.width = `${barWidth}px`;
+      deptBar.style.position = 'absolute';
+      deptBar.style.bottom = '30px';
+      deptBar.style.left = `${(index * (barWidth * 2 + 12)) + 50 + barWidth + 4}px`;
+      deptBar.style.backgroundColor = '#EAB308';
+      deptBar.setAttribute('title', `Department: ${item.department}`);
+
+      // Semester label (X-axis)
+      const label = document.createElement('div');
+      label.textContent = `${item.semester}`;
+      label.style.position = 'absolute';
+      label.style.bottom = '10px';
+      label.style.left = `${(index * (barWidth * 2 + 12)) + 50 + barWidth}px`;
+      label.style.fontSize = '12px';
+      label.style.transform = 'translateX(-50%)';
+
+      wrapper.appendChild(instituteBar);
+      wrapper.appendChild(deptBar);
+      wrapper.appendChild(label);
+    });
+
+    // Y-axis label
+    const yAxisLabel = document.createElement('div');
+    yAxisLabel.textContent = 'Activity Points';
+    yAxisLabel.style.position = 'absolute';
+    yAxisLabel.style.left = '-60px';
+    yAxisLabel.style.top = '50%';
+    yAxisLabel.style.transform = 'rotate(-90deg)';
+    yAxisLabel.style.fontSize = '14px';
+    yAxisLabel.style.fontWeight = 'bold';
+
+    // X-axis label
+    const xAxisLabel = document.createElement('div');
+    xAxisLabel.textContent = 'Semester';
+    xAxisLabel.style.position = 'absolute';
+    xAxisLabel.style.bottom = '-25px';
+    xAxisLabel.style.left = '50%';
+    xAxisLabel.style.transform = 'translateX(-50%)';
+    xAxisLabel.style.fontSize = '14px';
+    xAxisLabel.style.fontWeight = 'bold';
+
+    // Add Y-axis grid and labels
+    for (let i = 0; i <= maxValue; i += 2) {
+      if (i === 0) continue;
+      const label = document.createElement('div');
+      label.textContent = i;
+      label.style.position = 'absolute';
+      label.style.left = '10px';
+      label.style.bottom = `${(i / maxValue) * chartHeight * 0.8 + 28}px`;
+      label.style.fontSize = '12px';
+      label.style.transform = 'translateY(50%)';
+
+      const line = document.createElement('div');
+      line.style.position = 'absolute';
+      line.style.left = '30px';
+      line.style.right = '10px';
+      line.style.bottom = `${(i / maxValue) * chartHeight * 0.8 + 30}px`;
+      line.style.borderBottom = '1px dashed #e5e7eb';
+      line.style.height = '1px';
+
+      wrapper.appendChild(label);
+      wrapper.appendChild(line);
+    }
+
+    // Add legend
+    const legend = document.createElement('div');
+    legend.style.display = 'flex';
+    legend.style.justifyContent = 'center';
+    legend.style.gap = '20px';
+    legend.style.marginTop = '30px';
+
+    const instituteLegend = document.createElement('div');
+    instituteLegend.style.display = 'flex';
+    instituteLegend.style.alignItems = 'center';
+    instituteLegend.style.gap = '5px';
+    const instituteLegendColor = document.createElement('div');
+    instituteLegendColor.style.width = '12px';
+    instituteLegendColor.style.height = '12px';
+    instituteLegendColor.style.backgroundColor = '#5687F2';
+    instituteLegendColor.style.borderRadius = '2px';
+    instituteLegend.appendChild(instituteLegendColor);
+    instituteLegend.appendChild(document.createTextNode('Institute'));
+
+    const deptLegend = document.createElement('div');
+    deptLegend.style.display = 'flex';
+    deptLegend.style.alignItems = 'center';
+    deptLegend.style.gap = '5px';
+    const deptLegendColor = document.createElement('div');
+    deptLegendColor.style.width = '12px';
+    deptLegendColor.style.height = '12px';
+    deptLegendColor.style.backgroundColor = '#EAB308';
+    deptLegendColor.style.borderRadius = '2px';
+    deptLegend.appendChild(deptLegendColor);
+    deptLegend.appendChild(document.createTextNode('Department'));
+
+    legend.appendChild(instituteLegend);
+    legend.appendChild(deptLegend);
+
+    // Add to chart container
+    chartContainer.appendChild(wrapper);
+    chartContainer.appendChild(legend);
+    wrapper.appendChild(yAxisLabel);
+    wrapper.appendChild(xAxisLabel);
+  });
+</script>
+
+    
+</body>
+</html>
